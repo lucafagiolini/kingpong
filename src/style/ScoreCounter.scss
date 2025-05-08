@@ -4,4 +4,15 @@
   justify-content: center;
   font-size: 2rem;
   color: #333;
+
+  
+  .score-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  
 }
+
+

@@ -26,14 +26,14 @@ const ScoreCounter = () => {
     // Server changes every 2 points
     if (totalPoints < 20) {
       // Regular play - change server every 2 points
-      setCurrentServer(Math.floor(totalPoints / 2) % 2 + 1)
+      setCurrentServer(Math.floor(totalPoints / 5) % 5 + 1)
     } else {
       // Deuce situation (10-10 or higher) - change server every point
-      setCurrentServer(totalPoints % 2 + 1)
+      setCurrentServer(totalPoints % 5 + 1)
     }
 
     // Check if game is over
-    if ((blueTeamScore >= 11 || redTeamScore >= 11) && 
+    if ((blueTeamScore >= 21 || redTeamScore >= 21) && 
         Math.abs(blueTeamScore - redTeamScore) >= 2) {
       setIsGameOver(true)
       setWinner(blueTeamScore > redTeamScore ? 1 : 2)
@@ -53,7 +53,7 @@ const ScoreCounter = () => {
     <div className="score-counter">
       <div className="score-display">
         <div className={`player ${currentServer === 1 ? 'serving' : ''}`}>
-          <h2>Player 1 {currentServer === 1 && '(Serving)'}</h2>
+          <h2>Blue Team{currentServer === 1 && '(Serving)'}</h2>
           <div className="score">{blueTeamScore}</div>
           <button 
             onClick={() => incrementScore(1)}
@@ -64,7 +64,7 @@ const ScoreCounter = () => {
         </div>
         
         <div className={`player ${currentServer === 2 ? 'serving' : ''}`}>
-          <h2>Player 2 {currentServer === 2 && '(Serving)'}</h2>
+          <h2>Red Team{currentServer === 2 && '(Serving)'}</h2>
           <div className="score">{redTeamScore}</div>
           <button 
             onClick={() => incrementScore(2)}

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
+// STYLE
+import "../style/ScoreCounter.scss"
 
 const ScoreCounter = () => {
-  const [playerOneScore, setPlayerOneScore] = useState(0)
-  const [playerTwoScore, setPlayerTwoScore] = useState(0)
+  const [blueTeamScore, setblueTeamScore] = useState(0)
+  const [redTeamScore, setredTeamScore] = useState(0)
   const [isGameOver, setIsGameOver] = useState(false)
   const [winner, setWinner] = useState(null)
   const [currentServer, setCurrentServer] = useState(1) // 1 for player one, 2 for player two
@@ -12,15 +14,15 @@ const ScoreCounter = () => {
     if (isGameOver) return
 
     if (player === 1) {
-      setPlayerOneScore(playerOneScore + 1)
+      setblueTeamScore(blueTeamScore + 1)
     } else {
-      setPlayerTwoScore(playerTwoScore + 1)
+      setredTeamScore(redTeamScore + 1)
     }
   }
 
   // Determine server (changes every 2 points)
   useEffect(() => {
-    const totalPoints = playerOneScore + playerTwoScore
+    const totalPoints = blueTeamScore + redTeamScore
     // Server changes every 2 points
     if (totalPoints < 20) {
       // Regular play - change server every 2 points
@@ -31,17 +33,17 @@ const ScoreCounter = () => {
     }
 
     // Check if game is over
-    if ((playerOneScore >= 11 || playerTwoScore >= 11) && 
-        Math.abs(playerOneScore - playerTwoScore) >= 2) {
+    if ((blueTeamScore >= 11 || redTeamScore >= 11) && 
+        Math.abs(blueTeamScore - redTeamScore) >= 2) {
       setIsGameOver(true)
-      setWinner(playerOneScore > playerTwoScore ? 1 : 2)
+      setWinner(blueTeamScore > redTeamScore ? 1 : 2)
     }
-  }, [playerOneScore, playerTwoScore])
+  }, [blueTeamScore, redTeamScore])
 
   // Reset game
   const resetGame = () => {
-    setPlayerOneScore(0)
-    setPlayerTwoScore(0)
+    setblueTeamScore(0)
+    setredTeamScore(0)
     setIsGameOver(false)
     setWinner(null)
     setCurrentServer(1)
@@ -52,7 +54,7 @@ const ScoreCounter = () => {
       <div className="score-display">
         <div className={`player ${currentServer === 1 ? 'serving' : ''}`}>
           <h2>Player 1 {currentServer === 1 && '(Serving)'}</h2>
-          <div className="score">{playerOneScore}</div>
+          <div className="score">{blueTeamScore}</div>
           <button 
             onClick={() => incrementScore(1)}
             disabled={isGameOver}
@@ -63,7 +65,7 @@ const ScoreCounter = () => {
         
         <div className={`player ${currentServer === 2 ? 'serving' : ''}`}>
           <h2>Player 2 {currentServer === 2 && '(Serving)'}</h2>
-          <div className="score">{playerTwoScore}</div>
+          <div className="score">{redTeamScore}</div>
           <button 
             onClick={() => incrementScore(2)}
             disabled={isGameOver}

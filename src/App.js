@@ -1,12 +1,12 @@
 import './App.css';
+import React from 'react';
+import ScoreDashboard from "../src/components/ScoreDashboard";
 
 function App() {
   return (
     <div className="App">
       <div>
-        <h1>
-          ciao
-        </h1>
+        <ScoreDashboard/>
       </div>
       
     </div>
